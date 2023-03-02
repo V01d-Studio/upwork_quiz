@@ -1,4 +1,4 @@
-import { Questions } from "@prisma/client";
+import { Prisma, Questions } from "@prisma/client";
 import prisma from "../configs/prisma.config";
 
 export const createQuizInstance = async (
@@ -23,4 +23,11 @@ export const fetchQuiz = async (id: string) => {
     where: { id },
     include: { questions: true },
   });
+};
+
+export const postAnswers = async (
+  answers: Prisma.InputJsonObject[],
+  quizId: string
+) => {
+  return prisma.quizAttempt.create({ data: { answers, quizId } });
 };

@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import quizRouter from "./routes/quiz.router";
-import attempRouter from "./routes/attempt.router";
 
 import prisma from "./configs/prisma.config";
 import { wrappedResponse } from "./utils/functions";
@@ -21,7 +20,6 @@ app.use(
 );
 
 app.use("/quiz", quizRouter);
-app.use("/attempt", attempRouter);
 
 app.use("*", (_: Request, res: Response) => {
   return wrappedResponse(res, false, [404], null, 404);

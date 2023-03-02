@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { createQuizInstance, fetchQuiz } from "../datastores/quiz.datastore";
+import {
+  createQuizInstance,
+  fetchQuiz,
+  postAnswers,
+} from "../datastores/quiz.datastore";
 import { wrappedResponse } from "../utils/functions";
 
 export const createQuiz = async (req: Request, res: Response) => {
@@ -21,4 +25,10 @@ export const getQuiz = async (req: Request, res: Response) => {
   }
 
   return wrappedResponse(res, true, null, result, 200);
+};
+
+export const submitQuiz = async (req: Request, res: Response) => {
+  const { answers, quizId } = req.body;
+  const result = await postAnswers(answers, quizId);
+  return wrappedResponse(res, true, null, result, 201);
 };
