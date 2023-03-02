@@ -8,14 +8,14 @@ export const methodNotAllowed = (
 
 export const wrappedResponse = (
   res: Response,
-  message: string,
-  statusCode: number,
-  result: unknown
+  success: boolean,
+  errors: number[],
+  data: unknown
 ) => {
-  return res.status(statusCode).json({
-    message,
-    statusCode,
-    result,
+  return res.status(errors[0]).json({
+    success,
+    errors,
+    data,
   });
 };
 

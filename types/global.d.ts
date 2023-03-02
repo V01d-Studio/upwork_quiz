@@ -1,12 +1,9 @@
 type GlobalResponse<T> = {
-  message: string;
-  statusCode: Number;
-  result: T;
+  success: boolean;
+  errors: number[];
+  data: T;
 };
 
-type Demo = {
-  message: string;
-};
 
 type AuthSchemes = typeof AuthSchemes[keyof typeof AuthSchemes];
 
