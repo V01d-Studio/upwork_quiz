@@ -24,7 +24,7 @@ app.use("/quiz", quizRouter);
 app.use("/attempt", attempRouter);
 
 app.use("*", (_: Request, res: Response) => {
-  return wrappedResponse(res, false, [404], null);
+  return wrappedResponse(res, false, [404], null, 404);
 });
 
 app.use(function onError(
@@ -34,7 +34,7 @@ app.use(function onError(
   next: NextFunction
 ) {
   console.log(err);
-  return wrappedResponse(res, false, [500], null);
+  return wrappedResponse(res, false, [500], null, 500);
 });
 
 const server = app.listen(port, async () => {

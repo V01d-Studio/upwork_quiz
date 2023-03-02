@@ -17,3 +17,10 @@ export const createQuizInstance = async (
   });
   return [quiz, questionInstances];
 };
+
+export const fetchQuiz = async (id: string) => {
+  return prisma.quiz.findUnique({
+    where: { id },
+    include: { questions: true },
+  });
+};

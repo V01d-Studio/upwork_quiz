@@ -9,10 +9,11 @@ export const methodNotAllowed = (
 export const wrappedResponse = (
   res: Response,
   success: boolean,
-  errors: number[],
-  data: unknown
+  errors: number[] | null,
+  data: unknown,
+  statusCode: number
 ) => {
-  return res.status(errors[0]).json({
+  return res.status(statusCode).json({
     success,
     errors,
     data,

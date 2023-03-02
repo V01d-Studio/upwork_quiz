@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createQuizInstance } from "../datastores/quiz.datastore";
+import { createQuizInstance, fetchQuiz } from "../datastores/quiz.datastore";
 import { wrappedResponse } from "../utils/functions";
 
 export const createQuiz = async (req: Request, res: Response) => {
@@ -9,11 +9,16 @@ export const createQuiz = async (req: Request, res: Response) => {
     quizDescription,
     questions
   );
-  return wrappedResponse(res, true, [], quiz);
+  return wrappedResponse(res, true, null, quiz, 201);
 };
 
 export const getQuiz = async (req: Request, res: Response) => {
   const quizId = req.params.id;
-  const result: unknown[] = [];
-  return wrappedResponse(res, true, [], result);
+  const result = await fetchQuiz(quizId);
+
+  if (!result) {
+    return wrappedResponse(res, false, [404], null, 404);
+  }
+
+  return wrappedResponse(res, true, null, result, 200);
 };
