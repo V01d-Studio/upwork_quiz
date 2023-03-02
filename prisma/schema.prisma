@@ -16,6 +16,7 @@ model Quiz {
   description String?
   createdAt   DateTime    @default(now())
   questions   Questions[]
+  quizAttemts QuizAttempt[]
 }
 
 model Questions {
@@ -32,4 +33,6 @@ model QuizAttempt {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   answers   Json
+  quizId String
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
 }
